@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>全屏移动</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0px;
+      padding: 0px;
+      overflow: hidden;
+    }
+
+    .h100 {
+      height: 100%;
+    }
+
+    .w100 {
+      width: 100%;
+    }
+
+    .mydiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      transition: top 1s;
+      color: #ffffff;
+    }
+
+    #mydiv2,
+    #mydiv3,
+    #mydiv4 {
+      top: 100%;
+    }
+
+    #mydiv1 {
+      background-color: #ff0000;
+      top: 0px;
+    }
+
+    #mydiv2 {
+      background-color: #ffff00;
+    }
+
+    #mydiv3 {
+      background-color: #00ff00;
+    }
+
+    #mydiv4 {
+      background-color: #00ffff;
+    }
+
+    .menus {
+      position: fixed;
+      bottom: 0px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .menu {
+      width: 15%;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .menu-hover {
+      border: 5px solid #ffffff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="h100 w100 mydiv" id="mydiv1">1</div>
+  <div class="h100 w100 mydiv" id="mydiv2">2</div>
+  <div class="h100 w100 mydiv" id="mydiv3">3</div>
+  <div class="h100 w100 mydiv" id="mydiv4">4</div>
+  <div class="w100 menus">
+    <div class="menu menu-hover">第一页</div>
+    <div class="menu">第二页</div>
+    <div class="menu">第三页</div>
+    <div class="menu">第四页</div>
+  </div>
+  <script>
+    var nowindex = 1;
+    var count = 1;
+    var scrollFunc = function (e) {
+      count++;
+      if (count < 6) {
+        return;
+      }
+      count = 1;
+      var direct = 0;
+      e = e || window.event;
+      if (e.wheelDelta) {
+        //IE/Opera/Chrome  
+        direct = e.wheelDelta;
+      } else if (e.detail) {
+        //Firefox  
+        direct = e.detail;
+      }
+
+      if (direct < 0) {
+        nowindex = (nowindex + 1) > 4 ? 4 : (nowindex + 1);
+        document.getElementById('mydiv' + (nowindex - 1)).style.top = '-100%';
+        document.getElementById('mydiv' + nowindex).style.top = '0px';
+        document.getElementsByClassName('menu')[nowindex - 2].classList.remove('menu-hover');
+        document.getElementsByClassName('menu')[nowindex - 1].classList.add('menu-hover');
+      }
+      if (direct > 0) {
+        nowindex = (nowindex - 1) < 1 ? 1 : (nowindex - 1);
+        document.getElementById('mydiv' + (nowindex + 1)).style.top = '100%';
+        document.getElementById('mydiv' + nowindex).style.top = '0px';
+        document.getElementsByClassName('menu')[nowindex].classList.remove('menu-hover');
+        document.getElementsByClassName('menu')[nowindex - 1].classList.add('menu-hover');
+      }
+    };
+
+    /*注册事件*/
+    if (document.addEventListener) {
+      document.addEventListener('DOMMouseScroll', scrollFunc, false);
+    }
+    //IE/Opera/Chrome/Safari
+    window.onmousewheel = document.onmousewheel = scrollFunc;
+
+
+  </script>
+</body>
+
+</html>

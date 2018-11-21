@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>按钮背景特效</title>
+  <style>
+    .div-flex {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .div-bgbtn:hover {
+      cursor: pointer;
+    }
+
+    .div-bgbtn:hover .div-bg {
+      transform: scale(1, 1);
+    }
+
+    .div-bg {
+      position: absolute;
+      z-index: -1;
+      background: rgba(150, 150, 150, 0.2);
+      border: 1px solid transparent;
+      border-radius: 25px;
+      height: 50px;
+      width: 120px;
+      transform: scale(0, 0);
+      transition: transform .25s;
+    }
+
+    .div-btn {
+      height: 50px;
+      width: 120px;
+      line-height: 50px;
+      text-align: center;
+      border: 1px solid #000000;
+      border-radius: 25px;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="div-flex">
+    <div class="div-bgbtn">
+      <div class="div-bg"></div>
+      <div class="div-btn">按钮</div>
+    </div>
+  </div>
+</body>
+
+</html>

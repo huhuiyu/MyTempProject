@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>21火柴游戏</title>
+  <link rel="stylesheet" href="lib/bootstrap.min.css">
+  <style>
+    .div-container {
+      width:50%;margin: 0px auto;
+    }
+    @media screen and (max-width: 700px) {
+      .div-container {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="jumbotron text-center">
+    <span class="h3"> 21火柴游戏规则：每次都要取走1-4根火柴，你先拿取，电脑后拿取，取到最后一根火柴的算输</span>
+    <hr>
+    <div class="div-container">
+      <div class="text-center">
+        <span class="btn btn-danger" id="btnReset">重玩</span>
+      </div>
+      <hr>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">数量(1-4)</span>
+          <input type="text" id="txtTaken" class="form-control" placeholder="你要拿取的火柴数">
+          <span class="input-group-addon btn btn-default" id="btnTaken">
+            <span><i class="glyphicon glyphicon-ok"></i></span>
+          </span>
+        </div>
+      </div>
+      <div class="h3 text-primary" id="divInfo"></div>
+    </div>
+  </div>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script>
+    $(function () {
+      var count = 21;
+      var isover = false;
+
+      function resetGame() {
+        count = 21;
+        isover = false;
+        $('#divInfo').html('总共' + count + '根火柴<br>');
+        $('#txtTaken').val('');
+        $('#txtTaken').focus();
+      }
+
+      resetGame();
+
+      $('#btnReset').click(resetGame);
+
+      $('#btnTaken').click(function () {
+        if (isover) {
+          return;
+        }
+        var taken = $('#txtTaken').val();
+        console.log(taken);
+        if (!taken || taken.length != 1 || '1234'.indexOf(taken) == -1) {
+          alert('只能是1-4');
+          $('#txtTaken').focus();
+          return;
+        }
+        taken = parseInt(taken);
+        count = count - taken;
+        $('#divInfo').append('你取走了' + taken + '根，还剩下' + count + '根火柴<br>');
+        var ctaken = 5 - taken;
+        count = count - ctaken;
+        $('#divInfo').append('电脑取走了' + ctaken + '根，还剩下' + count + '根火柴<br>');
+        if (count == 1) {
+          isover = true;
+          $('#divInfo').append('只剩下一根火柴，你输了');
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

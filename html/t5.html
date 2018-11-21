@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动遮罩</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+      overflow: hidden;
+    }
+
+    .fl {
+      float: left;
+    }
+
+    .clearfix {
+      clear: both;
+    }
+
+    .h100 {
+      height: 100%;
+    }
+
+    .h50 {
+      height: 50%;
+    }
+
+    .w50 {
+      width: 50%;
+    }
+
+    .bg01,
+    .bg02,
+    .bg03 {
+      background-size: cover;
+      transition: all 1s;
+      position: relative;
+    }
+
+
+    .show-default {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bg01:hover .show-default,
+    .bg02:hover .show-default,
+    .bg03:hover .show-default {
+      display: none;
+    }
+
+    .bg01 .movein,
+    .bg02 .movein,
+    .bg03 .movein {
+      position: absolute;
+      left: 100%;
+      transition: left .5s;
+    }
+
+    .bg01:hover .movein,
+    .bg02:hover .movein,
+    .bg03:hover .movein {
+      left: 0;
+      height: 100%;
+      width: 100%;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bg01 {
+      background-image: url('./images/img7.jpg');
+    }
+
+    .bg02 {
+      background-image: url('./images/img8.jpg');
+    }
+
+    .bg03 {
+      background-image: url('./images/img10.jpg');
+    }
+  </style>
+</head>
+
+<body>
+  <div class="h100">
+    <div class="h100 w50 fl">
+      <div class="h50 bg01">
+        <div class="show-default">
+          <div>1-default</div>
+        </div>
+        <div class="movein">
+          <div>1</div>
+        </div>
+      </div>
+      <div class="h50 bg02">
+        <div class="show-default">
+          <div>2-default</div>
+        </div>
+        <div class="movein">
+          <div>2</div>
+        </div>
+      </div>
+    </div>
+    <div class="h100 w50 fl">
+      <div class="bg03 h100">
+        <div class="show-default">
+          <div>3-default</div>
+        </div>
+        <div class="movein">
+          <div>3</div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>猜数游戏</title>
+  <link rel="stylesheet" href="lib/bootstrap.min.css">
+  <style>
+    .div-container {
+      width: 50%;
+      margin: 0px auto;
+    }
+
+    @media screen and (max-width: 700px) {
+      .div-container {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="jumbotron text-center">
+    <span class="h3"> 猜数游戏规则：心里想一个1-100的整数，电脑会猜测这个数是多少，猜错的时候你只需要回答是猜大了，还是小了，最多7次电脑就能猜中</span>
+    <hr>
+    <div class="div-container">
+      <div class="text-center">
+        <span class="btn btn-danger" id="btnReset">开始游戏</span>
+        <span class="btn btn-danger" id="btnBig">猜大了</span>
+        <span class="btn btn-danger" id="btnSmall">猜小了</span>
+      </div>
+      <div class="h3 text-primary" id="divInfo"></div>
+    </div>
+  </div>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script>
+    $(function () {
+      var guess = 50;
+      var max = 100, min = 1;
+      var isover = true;
+      var count = 0;
+      $('#divInfo').html('');
+
+      $('#btnReset').click(function () {
+        isover = false;
+        count = 1;
+        guess = 50;
+        max = 100;
+        min = 1;
+        $('#divInfo').html(count + '--你想的数是:' + guess + '<br>');
+      });
+
+      $('#btnBig').click(function () {
+        if (isover) {
+          return;
+        }
+        count++;
+        max = guess - 1;
+        guess = parseInt(((max + min) / 2) + '');
+        $('#divInfo').append(count + '--你想的数是:' + guess + '<br>');
+        if (count == 7 || guess <= 1 || guess >= 100) {
+          lastGuess();
+        }
+      });
+
+      $('#btnSmall').click(function () {
+        if (isover) {
+          return;
+        }
+        count++;
+        min = guess + 1;
+        guess = parseInt(((max + min) / 2) + '');
+        $('#divInfo').append(count + '--你想的数是:' + guess + '<br>');
+        if (count == 7 || guess <= 1 || guess >= 100) {
+          lastGuess();
+        }
+      });
+
+      function lastGuess() {
+        isover = true;
+        $('#divInfo').append('猜数已经结束，如果不正确，是不是你想的不是1-100的整数<br>');
+      }
+
+    });
+  </script>
+</body>
+
+</html>

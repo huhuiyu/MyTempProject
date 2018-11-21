@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>全屏背景图片</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .h100 {
+      height: 100%;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    .container .icons-bar {
+      width: 100%;
+      position: absolute;
+      bottom: 0px;
+      padding: 50px 0px 50px 0px;
+    }
+
+    .container .icons {
+      width: 50%;
+      margin: 0px auto;
+      display: flex;
+    }
+
+    .icons .icon {
+      width: 50%;
+      padding: 20px;
+      cursor: pointer;
+      transition: all .5s;
+    }
+
+    .icons .line {
+      position: absolute;
+      width: 25%;
+      left: 25%;
+      top: 70%;
+      /* border: 1px solid #fff; */
+      background-color: #ff0000;
+      height: 2px;
+      transition: left .5s;
+    }
+
+    .bg100 {
+      background-image: url('./images/img7.jpg');
+      background-size: cover;
+      transition: all 1s;
+    }
+
+    .icon-height {
+      transition: all .5s;
+      position: relative;
+      text-align: center;
+      top: 0px;
+    }
+
+    .icons .icon:hover .icon-height {
+      top: -10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container h100">
+    <div class="h100 bg100">
+      <div class="">dfdf</div>
+      <div class="icons-bar">
+        <div class="icons">
+          <div class="icon" onmousemove="changeImage('img7.jpg',1)">
+            <div class="icon-height">图片一</div>
+          </div>
+          <div class="icon" onmousemove="changeImage('img8.jpg',2)">
+            <div class="icon-height">图片二</div>
+          </div>
+          <div class="line" id="line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function changeImage(img, position) {
+      var bg100 = document.getElementsByClassName('bg100')[0];
+      bg100.style.backgroundImage = "url('images/" + img + "')";
+      document.getElementById('line').style.left = (position * 25) + "%";
+    }
+  </script>
+</body>
+
+</html>

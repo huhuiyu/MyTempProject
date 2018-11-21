@@ -1,18 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>倒计时</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title></title>
-  <style>
+  <body>
+    <div>
+      倒计时：<span id="spTime"></span>
+      <button onclick="restart();">重新开始计时</button>
+    </div>
+    <script>
+      var saveTimeKey = 'saved-start-time';
+      function restart() {
+        localStorage.removeItem(saveTimeKey);
+        startTime();
+      }
+      function loadStartTime() {
+        return localStorage.getItem(saveTimeKey);
+      }
 
-  </style>
-</head>
+      function saveStartTime(startedtime) {
+        localStorage.setItem(saveTimeKey, startedtime);
+      }
+      //倒计时总时长
+      var times = 1 * 60;
+      var timer;
+      var startedtime;
 
-<body>
-  
-</body>
+      function startTime() {
+        startedtime = loadStartTime();
+        if (!startedtime) {
+          startedtime = new Date().getTime();
+          saveStartTime(startedtime);
+        }
+        // console.log(startedtime);
+        countdown();
+        timer = setInterval(countdown, 1000);
+      }
 
+      function countdown() {
+        var now = new Date().getTime();
+        var showTime = parseInt((now - startedtime) / 1000);
+        var nowShowTime = times - showTime;
+        if (nowShowTime < 0) {
+          document.getElementById('spTime').innerHTML = '00:00';
+          //localStorage.removeItem(saveTimeKey);
+          clearInterval(timer);
+          return;
+        }
+        var seconds = nowShowTime % 60;
+        var minutes = parseInt(nowShowTime / 60);
+        seconds = seconds < 10 ? '0' + seconds : '' + seconds;
+        minutes = minutes < 10 ? '0' + minutes : '' + minutes;
+        if (nowShowTime <= 0) {
+          document.getElementById('spTime').innerHTML = '00:00';
+          //localStorage.removeItem(saveTimeKey);
+          clearInterval(timer);
+        }
+        document.getElementById('spTime').innerHTML = minutes + ':' + seconds;
+      }
+
+      startTime();
+    </script>
+  </body>
 </html>
